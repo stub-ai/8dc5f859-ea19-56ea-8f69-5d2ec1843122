@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Select from 'react-select';
 
 interface Product {
   name: string;
@@ -20,13 +21,19 @@ const ProductForm: React.FC = () => {
     setAlternativeProducts(newAlternativeProducts);
   };
 
-  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setProduct({ ...product, country: e.target.value });
+  const handleCountryChange = (selectedOption: any) => {
+    setProduct({ ...product, country: selectedOption.value });
   };
 
   const addAlternativeProduct = () => {
     setAlternativeProducts([...alternativeProducts, { name: '', brand: '', country: '' }]);
   };
+
+  const countryOptions = [
+    { value: 'USA', label: 'USA' },
+    { value: 'Canada', label: 'Canada' },
+    { value: 'UK', label: 'UK' },
+  ];
 
   return (
     <div className="w-full max-w-xs mx-auto">
@@ -61,18 +68,14 @@ const ProductForm: React.FC = () => {
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="country">
             Country
           </label>
-          <select
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          <Select
             id="country"
             name="country"
-            value={product.country}
+            options={countryOptions}
             onChange={handleCountryChange}
-          >
-            <option value="">Select a country</option>
-            <option value="USA">USA</option>
-            <option value="Canada">Canada</option>
-            <option value="UK">UK</option>
-          </select>
+            className="basic-single"
+            classNamePrefix="select"
+          />
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
