@@ -20,6 +20,10 @@ const ProductForm: React.FC = () => {
     setAlternativeProducts(newAlternativeProducts);
   };
 
+  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setProduct({ ...product, country: e.target.value });
+  };
+
   const addAlternativeProduct = () => {
     setAlternativeProducts([...alternativeProducts, { name: '', brand: '', country: '' }]);
   };
@@ -57,14 +61,18 @@ const ProductForm: React.FC = () => {
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="country">
             Country
           </label>
-          <input
+          <select
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="country"
-            type="text"
             name="country"
             value={product.country}
-            onChange={handleInputChange}
-          />
+            onChange={handleCountryChange}
+          >
+            <option value="">Select a country</option>
+            <option value="USA">USA</option>
+            <option value="Canada">Canada</option>
+            <option value="UK">UK</option>
+          </select>
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
